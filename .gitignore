@@ -1,0 +1,17 @@
+out/clientFilesCourse
+out/questions
+__pycache__/
+chem102/
+chem101/
+chem102BC/
+chemCLC/
+chem*/
+quiz*/
+review-exam3/
+.vscode/
+.idea/
+sample-questions
+out/
+*.log
+*.zip
+*.problem

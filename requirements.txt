@@ -1,0 +1,6 @@
+beautifulsoup4==4.13.4
+importlib_metadata==8.7.0
+pystache==0.6.8
+soupsieve==2.7
+typing_extensions==4.13.2
+zipp==3.21.0

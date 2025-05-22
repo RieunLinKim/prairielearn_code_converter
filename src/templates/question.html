@@ -1,0 +1,91 @@
+<root>
+<!-- <pl-question-panel> -->
+    {{#questions}} 
+    <br/>
+
+    {{{prompt}}} 
+
+
+    {{#isStringResponse}}
+    \{\{#params.questions.{{answerId}}\}\}
+
+    <pl-string-input answers-name="{{answerId}}" size="{{inputSize}}" placeholder="{{placeholder}}" correct-answer="\{\{answerValue\}\}"></pl-string-input>
+    \{\{/params.questions.{{answerId}}\}\}
+    {{/isStringResponse}}
+
+    {{#isReactionResponse}}
+    \{\{#params.questions.{{answerId}}\}\}
+    <pl-string-input answers-name="{{answerId}}" size="{{inputSize}}" placeholder="{{placeholder}}" correct-answer="\{\{answerValue\}\}"></pl-string-input>
+    \{\{/params.questions.{{answerId}}\}\}
+    {{/isReactionResponse}}
+
+    {{#isRadioButtonResponse}}
+    <pl-multiple-choice answers-name="{{answerId}}" fixed-order="true">
+        <!-- lon-capa randomly presents a subset of all foils, thus we have to delay rendering until runtime -->
+        \{\{#params.questions.{{answerId}}.foils\}\}
+            <pl-answer correct="\{\{answerValue\}\}">\{\{\{foilPrompt\}\}\}</pl-answer>
+        \{\{/params.questions.{{answerId}}.foils\}\}
+      </pl-multiple-choice>
+    {{/isRadioButtonResponse}}
+
+
+    {{#isOptionResponse}}
+        <!-- lon-capa randomly presents a subset of all foils, thus we have to delay rendering until runtime -->
+        \{\{#params.questions.{{answerId}}.foils\}\}
+        <div style="display:flex;">
+                <pl-dropdown  answers-name="\{\{answerId\}\}" blank="{{isBlank}}" sort="{{sort}}">
+                    \{\{#options\}\}
+                    <pl-answer correct="\{\{answerValue\}\}">\{\{option\}\}</pl-answer>
+                    \{\{/options\}\}
+                </pl-dropdown>
+            <p style="margin-left:10px;">\{\{\{foilPrompt\}\}\}</p>
+        </div>
+        \{\{/params.questions.{{answerId}}.foils\}\}
+    {{/isOptionResponse}}
+
+
+    {{#isNumericalResponse}}
+    \{\{#params.questions.{{answerId}}\}\}
+    <pl-number-input answers-name="{{answerId}}" label="{{label}}" comparison="relabs" rtol="\{\{rtol\}\}" atol="\{\{atol\}\}" placeholder="{{placeholder}}" correct-answer="\{\{answerValue\}\}" show-help-text="true" ></pl-number-input>
+    \{\{/params.questions.{{answerId}}\}\}
+    {{/isNumericalResponse}}
+
+
+    {{#isRankResponse}}
+    <pl-order-blocks answers-name="{{answerId}}" grading-method="ranking" partial-credit="none" source-blocks-order="ordered">
+        <!-- lon-capa randomly presents a subset of all foils, thus we have to delay rendering until runtime -->
+        \{\{#params.questions.{{answerId}}.foils\}\}
+            <pl-answer ranking="\{\{rank\}\}"  correct="true">\{\{\{foilPrompt\}\}\}</pl-answer>
+        \{\{/params.questions.{{answerId}}.foils\}\}
+    </pl-order-blocks>
+    {{/isRankResponse}}
+
+
+    
+    {{#hint}}
+    {{{precedingText}}}
+    <pl-hidden-hints>
+        <pl-hint show-after-submission="1" hint-name="Hint">
+            {{{prompt}}} <br/>
+            {{#files}}
+                {{#isHTML}}
+                    <pl-template file-name="{{name}}" directory="clientFilesQuestion"></pl-template><br/>
+                {{/isHTML}}
+                {{#isImage}}
+                    <pl-figure file-name="{{name}}" directory="clientFilesQuestion"></pl-figure><br/>
+                {{/isImage}}
+                {{#isUnknownType}}
+                    <pl-file-download file-name="{{name}}" directory="clientFilesQuestion"></pl-file-download><br/>
+                {{/isUnknownType}}
+            {{/files}}
+        </pl-hint>
+    </pl-hidden-hints>
+    {{/hint}}
+
+
+    {{/questions}}
+
+
+    {{{tail}}}
+<!-- </pl-question-panel> -->
+</root>
