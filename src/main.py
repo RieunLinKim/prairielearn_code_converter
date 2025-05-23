@@ -139,9 +139,9 @@ def cleanFolder(folder):
         file_path = os.path.join(folder, filename)
         try:
             if os.path.isfile(file_path):
-                os.unlink(file_path)
+                os.unlink(file_path)    # remove file
             elif os.path.isdir(file_path):
-                shutil.rmtree(file_path)
+                shutil.rmtree(file_path)    # remove folder
         except Exception as e:
             logger.warning('Failed to clean folder %s with error %s' % (file_path, e))
 
@@ -154,7 +154,7 @@ if __name__ == "__main__":
     Path("out/questions").mkdir(parents=True, exist_ok=True)
     cleanFolder("out/questions")
 
-    curPath = str(Path(__file__).parent.resolve())
+    curPath = str(Path(__file__).parent.resolve())  # get the absolute path of the parent directory of current file
     fileDirs = []
     for questionDir in os.listdir(curPath+"/../" + _source_folder):
         path = _source_folder + "/" + questionDir
@@ -217,6 +217,6 @@ if __name__ == "__main__":
         ],
         "comment": "You can add comments to JSON files using this property."
     }
-    with open("out/courseInstances/Fa2023/assessments/quiz01/infoAssessment.json", "w") as f:
+    with open("out/courseInstances/sample_questions/infoAssessment.json", "w") as f:
         f.write(json.dumps(infoAssessment, indent=4))
 
